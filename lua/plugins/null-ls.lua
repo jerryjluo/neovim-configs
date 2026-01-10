@@ -1,17 +1,11 @@
 return {
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
   config = function ()
     local null_ls = require("null-ls")
     null_ls.setup {
       sources = {
-        null_ls.builtins.diagnostics.flake8.with {
-          extra_args = {"--max-line-length", "88"},
-        },
-        null_ls.builtins.formatting.autoflake,
-        null_ls.builtins.formatting.black.with {
-          extra_args = {"--preview", "--enable-unstable-feature", "string_processing"}
-        },
-        null_ls.builtins.formatting.isort,
+        -- Python builtins (flake8, black, isort, autoflake) were removed from none-ls
+        -- Consider using conform.nvim for formatting and nvim-lint for linting
       }
     }
   end
