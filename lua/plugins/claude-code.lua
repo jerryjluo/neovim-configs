@@ -11,8 +11,8 @@ return {
     { "<leader>am", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
     { "<leader>ab", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
     { "<leader>as", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-    { "<C-,>", "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code (Ctrl+,)", mode = { "n", "x", "i", "t"} },
-    { "<C-.>", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+    { "<M-,>", "<cmd>ClaudeCodeFocus<cr>", desc = "Claude Code (Ctrl+,)", mode = { "n", "x", "i", "t"} },
+    { "<M-.>", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
     {
       "<leader>as",
       "<cmd>ClaudeCodeTreeAdd<cr>",
