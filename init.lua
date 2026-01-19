@@ -134,7 +134,7 @@ vim.keymap.set('n', '<leader>fd', '<Cmd>w !git diff --no-index -- % -<CR>', { de
 -- Git
 vim.keymap.set('n', '<leader>gb', '<Cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
 vim.keymap.set('n', '<leader>gr', '<Cmd>Telescope git_branches<CR>', { desc = '[G]it B[r]anches' })
-vim.keymap.set('n', '<leader>gs', '<Cmd>vertical Git<CR>', { desc = '[G]it [S]tatus' })
+vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', '<Cmd>.GBrowse!<CR>', { desc = '[G]it [L]ink' })
 vim.keymap.set('n', '<leader>gd', '<Cmd>Gvdiffsplit<CR>', { desc = '[G]it [D]iff against staged' })
 
