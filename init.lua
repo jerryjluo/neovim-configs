@@ -28,6 +28,7 @@ require('lazy').setup({
   'nvim-neotest/nvim-nio',         -- Async IO library (dependency for other plugins)
   require 'plugins.debug',         -- DAP debugger for Go and Python
   require 'plugins.filetree',      -- Neo-tree file explorer
+  require 'plugins.diffview',      -- Git diff viewer with file tree
   require 'plugins.gitsigns',      -- Git signs in gutter + hunk operations
   require 'plugins.lsp-signature', -- Function signature help while typing
   require 'plugins.lualine',       -- Status line
@@ -137,6 +138,8 @@ vim.keymap.set('n', '<leader>gr', '<Cmd>Telescope git_branches<CR>', { desc = '[
 vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
 vim.keymap.set('n', '<leader>gl', '<Cmd>.GBrowse!<CR>', { desc = '[G]it [L]ink' })
 vim.keymap.set('n', '<leader>gd', '<Cmd>Gvdiffsplit<CR>', { desc = '[G]it [D]iff against staged' })
+vim.keymap.set('n', '<leader>gh', '<Cmd>Telescope git_stash<CR>', { desc = '[G]it Stas[h]' })
+vim.keymap.set('n', '<leader>gc', '<Cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
 
 -- Code
 vim.keymap.set('n', '<leader>cf', '<Cmd>Format<CR>', { desc = '[C]ode [F]ormat' })
