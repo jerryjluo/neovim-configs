@@ -7,7 +7,7 @@ vim.g.maplocalleader = ' '
 -- =============================================================================
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
     'clone',
@@ -33,7 +33,6 @@ require('lazy').setup({
   require 'plugins.gitsigns',      -- Git signs in gutter + hunk operations
   require 'plugins.lsp-signature', -- Function signature help while typing
   require 'plugins.lualine',       -- Status line
-  require 'plugins.null-ls',       -- Linting and formatting (flake8, black, isort)
   require 'plugins.nvim-cmp',      -- Autocompletion engine
   require 'plugins.symbols-outline', -- Code outline sidebar
   require 'plugins.telescope',     -- Fuzzy finder for files, grep, buffers

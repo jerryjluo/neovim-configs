@@ -12,7 +12,7 @@ return
 		{ 'j-hui/fidget.nvim',       opts = {} },
 
 		-- Additional lua configuration, makes nvim stuff amazing!
-		'folke/neodev.nvim',
+		'folke/lazydev.nvim',
 
         {
             "SmiteshP/nvim-navbuddy",
@@ -127,7 +127,7 @@ return
 		}
 
 		-- Setup neovim lua configuration
-		require('neodev').setup()
+		require('lazydev').setup()
 
 		-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 		local capabilities = vim.lsp.protocol.make_client_capabilities()

@@ -1,10 +1,8 @@
 return {
-	'simrat39/symbols-outline.nvim',
-	cmd = 'SymbolsOutline',
+	'hedyhli/outline.nvim',
+	cmd = { 'Outline', 'OutlineOpen' },
 	keys = {
-		{ '<leader>co', '<Cmd>SymbolsOutline<CR>', desc = '[C]ode [O]utline' },
+		{ '<leader>co', '<Cmd>Outline<CR>', desc = '[C]ode [O]utline' },
 	},
-	config = function()
-		require('symbols-outline').setup()
-	end,
+	opts = {},
 }
