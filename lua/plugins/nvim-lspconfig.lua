@@ -83,6 +83,14 @@ return
 		end
 
 
+		-- Set up LSP keymaps when any LSP attaches (works for all LSP servers)
+		vim.api.nvim_create_autocmd('LspAttach', {
+			group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+			callback = function(ev)
+				on_attach(nil, ev.buf)
+			end,
+		})
+
 		-- mason-lspconfig requires that these setup functions are called in this order
 		-- before setting up the servers.
 		require('mason').setup()
@@ -130,17 +138,16 @@ return
 
 		mason_lspconfig.setup {
 			ensure_installed = vim.tbl_keys(servers),
-		}
-
-		mason_lspconfig.setup_handlers {
-			function(server_name)
-				require('lspconfig')[server_name].setup {
-					capabilities = capabilities,
-					on_attach = on_attach,
-					settings = servers[server_name],
-					filetypes = (servers[server_name] or {}).filetypes,
-				}
-			end,
+			handlers = {
+				function(server_name)
+					require('lspconfig')[server_name].setup {
+						capabilities = capabilities,
+						on_attach = on_attach,
+						settings = servers[server_name],
+						filetypes = (servers[server_name] or {}).filetypes,
+					}
+				end,
+			},
 		}
 	end
 }

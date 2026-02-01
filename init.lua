@@ -27,6 +27,7 @@ require('lazy').setup({
   'jeetsukumaran/vim-indentwise',  -- Motions based on indent levels ([-, ]+, etc.)
   'nvim-neotest/nvim-nio',         -- Async IO library (dependency for other plugins)
   require 'plugins.debug',         -- DAP debugger for Go and Python
+  require 'plugins.nvim-lspconfig', -- LSP configuration with Mason
   require 'plugins.filetree',      -- Neo-tree file explorer
   require 'plugins.diffview',      -- Git diff viewer with file tree
   require 'plugins.gitsigns',      -- Git signs in gutter + hunk operations
