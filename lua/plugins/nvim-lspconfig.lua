@@ -149,5 +149,11 @@ return
 				end,
 			},
 		}
+
+		-- sourcekit-lsp ships with Xcode/Swift toolchain, not managed by Mason
+		vim.lsp.config('sourcekit', {
+			capabilities = capabilities,
+		})
+		vim.lsp.enable('sourcekit')
 	end
 }
