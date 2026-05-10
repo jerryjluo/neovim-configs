@@ -44,7 +44,7 @@ return
 			nmap('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
 			nmap('<leader>cn', '<Cmd>Navbuddy<CR>', '[C]ode [N]avbuddy')
 			nmap('<leader>ca', function()
-				vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
+				vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' }, diagnostics = {} } }
 			end, '[C]ode [A]ction')
 
 			nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -120,6 +120,7 @@ return
 				Lua = {
 					workspace = { checkThirdParty = false },
 					telemetry = { enable = false },
+					diagnostics = { globals = { 'vim' } },
 					-- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
 					-- diagnostics = { disable = { 'missing-fields' } },
 				},
@@ -127,7 +128,11 @@ return
 		}
 
 		-- Setup neovim lua configuration
-		require('lazydev').setup()
+		require('lazydev').setup {
+			library = {
+				{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+			},
+		}
 
 		-- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
