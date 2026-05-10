@@ -101,10 +101,12 @@ vim.keymap.set('t', '<C-]>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Diagnostics
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', '[$', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', ']$', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+local function diag_prev() vim.diagnostic.jump({ count = -1, float = true }) end
+local function diag_next() vim.diagnostic.jump({ count = 1, float = true }) end
+vim.keymap.set('n', '[d', diag_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', '[$', diag_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', diag_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', ']$', diag_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
