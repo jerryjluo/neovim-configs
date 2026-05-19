@@ -97,6 +97,13 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set("n", "'", "`")
 vim.keymap.set('n', '<C-_>', '<Cmd>noh<CR>', { desc = 'Clear search' })
+vim.keymap.set('n', '<C-l>', function()
+  vim.cmd('checktime')
+  pcall(function() require('neo-tree.sources.manager').refresh('filesystem') end)
+  vim.cmd('nohlsearch')
+  vim.cmd('diffupdate')
+  vim.cmd('redraw!')
+end, { desc = 'Reload buffers and refresh filetree' })
 vim.keymap.set('t', '<C-]>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
@@ -194,6 +201,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
   group = highlight_group,
   pattern = '*',
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.cmd('Neotree show')
+  end,
 })
 
 -- =============================================================================
