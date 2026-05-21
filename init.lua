@@ -97,9 +97,12 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set("n", "'", "`")
 vim.keymap.set('n', '<C-_>', '<Cmd>noh<CR>', { desc = 'Clear search' })
-vim.keymap.set('n', '<C-l>', function()
+local function refresh_buffers_and_tree()
   vim.cmd('checktime')
   pcall(function() require('neo-tree.sources.manager').refresh('filesystem') end)
+end
+vim.keymap.set('n', '<C-l>', function()
+  refresh_buffers_and_tree()
   vim.cmd('nohlsearch')
   vim.cmd('diffupdate')
   vim.cmd('redraw!')
@@ -207,6 +210,10 @@ vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     vim.cmd('Neotree show')
   end,
+})
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
+  callback = refresh_buffers_and_tree,
 })
 
 -- =============================================================================
