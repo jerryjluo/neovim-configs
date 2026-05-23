@@ -41,6 +41,7 @@ require('lazy').setup({
   require 'plugins.catppuccin',    -- Color theme
   require 'plugins.nvim-various-textobjs', -- Extra text objects (multiline comments, etc.)
   require 'plugins.claude-code',   -- Claude Code integration
+  require 'plugins.harpoon',       -- Pinned file marks
 }, {})
 
 -- =============================================================================

@@ -12,6 +12,9 @@ return {
 	},
 	config = function()
 		require("neo-tree").setup({
+			window = {
+				width = 30,
+			},
 			filesystem = {
 				filtered_items = {
 					hide_dotfiles = false,

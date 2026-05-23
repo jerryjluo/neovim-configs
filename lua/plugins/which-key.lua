@@ -17,6 +17,7 @@ return
 			{ "<leader>f", group = "[F]ile" },
 			{ "<leader>g", group = "[G]it" },
 			{ "<leader>h", group = "Git [H]unk" },
+			{ "<leader>m", group = "[M]ark (harpoon)" },
 			{ "<leader>r", group = "A[r]glist" },
 			{ "<leader>s", group = "[S]earch" },
 			{ "<leader>t", group = "[T]ab/Toggle" },
