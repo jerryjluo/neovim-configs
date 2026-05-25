@@ -14,6 +14,19 @@ return {
 		require("neo-tree").setup({
 			window = {
 				width = 30,
+				mappings = {
+					["Y"] = function(state)
+						local node = state.tree:get_node()
+						local path = vim.fn.fnamemodify(node.path, ":.")
+						vim.fn.setreg("+", path)
+						vim.notify("Copied: " .. path)
+					end,
+					["gy"] = function(state)
+						local node = state.tree:get_node()
+						vim.fn.setreg("+", node.path)
+						vim.notify("Copied: " .. node.path)
+					end,
+				},
 			},
 			filesystem = {
 				filtered_items = {
