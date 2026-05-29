@@ -141,6 +141,17 @@ vim.keymap.set('n', '<leader>fo', require('telescope.builtin').buffers, { desc =
 vim.keymap.set('n', '<leader>fe', '<Cmd>Ex<CR>', { desc = '[F]ile [E]xplore' })
 vim.keymap.set('n', '<leader>fv', '<Cmd>Vex<CR>', { desc = '[F]ile Explore [V]ertical' })
 vim.keymap.set('n', '<leader>fs', require('telescope.builtin').find_files, { desc = '[F]ile [S]earch' })
+vim.keymap.set('n', '<leader>fa', function()
+  require('telescope.builtin').find_files {
+    hidden = true,
+    find_command = {
+      'sh', '-c',
+      "{ fd --type f --type l --hidden --follow --exclude .git; "
+        .. "fd --type f --type l --hidden --follow --no-ignore --glob '.env*' --exclude .git; "
+        .. "} | awk '!seen[$0]++'",
+    },
+  }
+end, { desc = '[F]ile search [A]ll (gitignore + .env + symlinks)' })
 vim.keymap.set('n', '<leader>ft', '<Cmd>Neotree toggle left<CR>', { desc = '[F]ile [T]ree' })
 vim.keymap.set('n', '<leader>fc', '<Cmd>Neotree position=current<CR>', { desc = '[F]iletree [C]urrent position' })
 vim.keymap.set('n', '<leader>fd', '<Cmd>w !git diff --no-index -- % -<CR>', { desc = '[F]ile [D]iff buffer edit' })
@@ -158,8 +169,24 @@ vim.keymap.set('n', '<leader>gc', '<Cmd>Git commit<CR>', { desc = '[G]it [C]ommi
 vim.keymap.set('n', '<leader>cf', '<Cmd>Format<CR>', { desc = '[C]ode [F]ormat' })
 
 -- Yank
-vim.keymap.set('n', '<leader>yr', '<Cmd>let @+ = expand("%")<CR>', { desc = '[Y]ank [R]elative path' })
+vim.keymap.set('n', '<leader>yr', '<Cmd>let @+ = expand("%:.")<CR>', { desc = '[Y]ank [R]elative path' })
 vim.keymap.set('n', '<leader>ya', '<Cmd>let @+ = expand("%:p")<CR>', { desc = '[Y]ank [A]bsolute path' })
+local function yank_path_with_range(expr)
+  return function()
+    local path = vim.fn.expand(expr)
+    local l1, l2 = vim.fn.line 'v', vim.fn.line '.'
+    if l1 > l2 then
+      l1, l2 = l2, l1
+    end
+    local range = l1 == l2 and tostring(l1) or (l1 .. '-' .. l2)
+    local text = path .. ':' .. range
+    vim.fn.setreg('+', text)
+    vim.notify('Yanked: ' .. text)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
+  end
+end
+vim.keymap.set('x', '<leader>yr', yank_path_with_range '%:.', { desc = '[Y]ank [R]elative path with range' })
+vim.keymap.set('x', '<leader>ya', yank_path_with_range '%:p', { desc = '[Y]ank [A]bsolute path with range' })
 vim.keymap.set({ 'n', 'v' }, '<C-p>', '"0p', { desc = 'Paste down from last yank' })
 vim.keymap.set({ 'n', 'v' }, '<C-P>', '"0P', { desc = 'Paste up from last yank' })
 
