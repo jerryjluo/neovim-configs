@@ -16,6 +16,7 @@ return {
 				width = 30,
 				mappings = {
 					["y"] = "noop",
+					["Y"] = "copy_to_clipboard",
 					["yr"] = {
 						function(state)
 							local node = state.tree:get_node()
