@@ -13,6 +13,7 @@ return
 		wk.add({
 			{ "<leader>a", group = "[A]I/Claude Code" },
 			{ "<leader>c", group = "[C]ode" },
+			{ "<leader>cw", group = "S[w]ap parameter" },
 			{ "<leader>d", group = "[D]iagnostics" },
 			{ "<leader>f", group = "[F]ile" },
 			{ "<leader>g", group = "[G]it" },
@@ -25,7 +26,9 @@ return
 			{ "<leader>y", group = "[Y]ank" },
 			-- visual mode groups
 			{ "<leader>", group = "VISUAL <leader>", mode = "v" },
+			{ "<leader>a", group = "[A]I/Claude Code", mode = "v" },
 			{ "<leader>h", group = "Git [H]unk", mode = "v" },
+			{ "<leader>y", group = "[Y]ank", mode = "v" },
 		})
 	end,
 }
