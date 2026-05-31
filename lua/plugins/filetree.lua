@@ -15,17 +15,24 @@ return {
 			window = {
 				width = 30,
 				mappings = {
-					["Y"] = function(state)
-						local node = state.tree:get_node()
-						local path = vim.fn.fnamemodify(node.path, ":.")
-						vim.fn.setreg("+", path)
-						vim.notify("Copied: " .. path)
-					end,
-					["gy"] = function(state)
-						local node = state.tree:get_node()
-						vim.fn.setreg("+", node.path)
-						vim.notify("Copied: " .. node.path)
-					end,
+					["y"] = "noop",
+					["yr"] = {
+						function(state)
+							local node = state.tree:get_node()
+							local path = vim.fn.fnamemodify(node.path, ":.")
+							vim.fn.setreg("+", path)
+							vim.notify("Copied: " .. path)
+						end,
+						desc = "Yank relative path",
+					},
+					["ya"] = {
+						function(state)
+							local node = state.tree:get_node()
+							vim.fn.setreg("+", node.path)
+							vim.notify("Copied: " .. node.path)
+						end,
+						desc = "Yank absolute path",
+					},
 				},
 			},
 			filesystem = {
