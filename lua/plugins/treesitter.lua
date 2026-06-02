@@ -9,10 +9,16 @@ return
     config = function()
         -- [[ Configure Treesitter ]]
         -- See `:help nvim-treesitter`
+        -- tree-sitter CLI >= 0.26 removed the `--no-bindings` flag from `generate`
+        -- (bindings are no longer generated there). nvim-treesitter still passes it
+        -- for any CLI > 0.20.2, breaking grammars that build from source (e.g. swift).
+        -- Override the generate args to drop the obsolete flag.
+        require('nvim-treesitter.install').ts_generate_args =
+            { 'generate', '--abi', vim.treesitter.language_version }
         -- Defer Treesitter setup after first render to improve startup time of 'nvim {filename}'
         require('nvim-treesitter.configs').setup {
             -- Add languages to be installed here that you want installed for treesitter
-            ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'markdown', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+            ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'markdown', 'rust', 'swift', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
 
             -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
             auto_install = false,

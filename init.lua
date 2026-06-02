@@ -37,6 +37,7 @@ require('lazy').setup({
   require 'plugins.symbols-outline', -- Code outline sidebar
   require 'plugins.telescope',     -- Fuzzy finder for files, grep, buffers
   require 'plugins.treesitter',    -- Syntax highlighting and text objects
+  require 'plugins.treesitter-context', -- Sticky scroll: pin enclosing scope to top of window
   require 'plugins.which-key',     -- Keymap hints popup
   require 'plugins.catppuccin',    -- Color theme
   require 'plugins.nvim-various-textobjs', -- Extra text objects (multiline comments, etc.)
@@ -60,6 +61,10 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
+-- Keep cursor away from window edges; also ensures the treesitter-context
+-- sticky header always has room (it caps its height to the cursor's distance
+-- from the top of the window, so scrolloff=0 made the header vanish at the top).
+vim.o.scrolloff = 8
 vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 vim.o.tabstop = 4
