@@ -78,6 +78,15 @@ Mason will auto-install servers listed in this table.
 - `<leader>fe` - Netrw explore | `<leader>fv` - Netrw vertical split
 - `<leader>fl` - Last buffer | `<leader>fd` - Diff buffer edits vs disk
 
+## Motions (flash.nvim)
+
+- `s` - Flash jump (type chars, then a label) - normal/visual/operator
+- `S` - Flash Treesitter select - normal/operator only (visual `S` left to vim-surround)
+- `r` - Remote Flash (operator-pending, e.g. `yr<target>`)
+- `R` - Treesitter search (operator/visual)
+- `<C-s>` - Toggle Flash while searching (command mode)
+- `f`/`t`/`F`/`T` are left as native Vim motions (flash char-mode disabled in `lua/plugins/flash.lua`)
+
 ## Debug (nvim-dap)
 
 Go and Python adapters configured. Delve installed via Mason.

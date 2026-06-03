@@ -43,6 +43,7 @@ require('lazy').setup({
   require 'plugins.nvim-various-textobjs', -- Extra text objects (multiline comments, etc.)
   require 'plugins.claude-code',   -- Claude Code integration
   require 'plugins.harpoon',       -- Pinned file marks
+  require 'plugins.flash',         -- Jump anywhere on screen via labeled motions
 }, {})
 
 -- =============================================================================
