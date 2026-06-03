@@ -34,7 +34,7 @@ require('lazy').setup({
   require 'plugins.lsp-signature', -- Function signature help while typing
   require 'plugins.lualine',       -- Status line
   require 'plugins.nvim-cmp',      -- Autocompletion engine
-  require 'plugins.symbols-outline', -- Code outline sidebar
+  require 'plugins.aerial',        -- Code outline sidebar
   require 'plugins.telescope',     -- Fuzzy finder for files, grep, buffers
   require 'plugins.treesitter',    -- Syntax highlighting and text objects
   require 'plugins.treesitter-context', -- Sticky scroll: pin enclosing scope to top of window

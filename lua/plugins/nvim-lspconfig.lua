@@ -51,7 +51,6 @@ return
 			nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 			nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 			nmap('gy', require('telescope.builtin').lsp_type_definitions, '[G]oto T[y]pe')
-			nmap('<leader>cs', require('telescope.builtin').lsp_document_symbols, '[C]ode [S]ymbols')
 			nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
 			-- See `:help K` for why this keymap

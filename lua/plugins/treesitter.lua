@@ -63,7 +63,6 @@ return
                     goto_next_start = {
                         [']f'] = '@function.outer',
                         [']#'] = '@function.outer',
-                        [']]'] = '@class.outer',
                         [']a'] = '@parameter.inner',
                         [']@'] = '@parameter.inner',
                     },
@@ -75,7 +74,6 @@ return
                     goto_previous_start = {
                         ['[f'] = '@function.outer',
                         ['[#'] = '@function.outer',
-                        ['[['] = '@class.outer',
                         ['[a'] = '@parameter.inner',
                         ['[@'] = '@parameter.inner',
                     },
