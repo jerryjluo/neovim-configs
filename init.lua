@@ -44,6 +44,7 @@ require('lazy').setup({
   require 'plugins.claude-code',   -- Claude Code integration
   require 'plugins.harpoon',       -- Pinned file marks
   require 'plugins.flash',         -- Jump anywhere on screen via labeled motions
+  require 'plugins.oil',           -- Buffer-based file manager (edit dirs as text)
 }, {})
 
 -- =============================================================================
@@ -144,8 +145,9 @@ vim.keymap.set('n', '<leader>dt', toggle_diagnostic, { desc = 'Toggle diagnostic
 vim.keymap.set('n', '<leader>fl', '<Cmd>b#<CR>', { desc = '[F]ile [L]ast' })
 vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ile [r]ecents' })
 vim.keymap.set('n', '<leader>fo', require('telescope.builtin').buffers, { desc = '[F]ile [o]pened' })
-vim.keymap.set('n', '<leader>fe', '<Cmd>Ex<CR>', { desc = '[F]ile [E]xplore' })
-vim.keymap.set('n', '<leader>fv', '<Cmd>Vex<CR>', { desc = '[F]ile Explore [V]ertical' })
+vim.keymap.set('n', '<leader>fe', '<Cmd>Oil<CR>', { desc = '[F]ile [E]xplore (Oil)' })
+vim.keymap.set('n', '<leader>fv', '<Cmd>vsplit | Oil<CR>', { desc = '[F]ile Explore [V]ertical (Oil)' })
+vim.keymap.set('n', '-', '<Cmd>Oil<CR>', { desc = 'Open parent dir (Oil)' })
 vim.keymap.set('n', '<leader>fs', require('telescope.builtin').find_files, { desc = '[F]ile [S]earch' })
 vim.keymap.set('n', '<leader>fa', function()
   require('telescope.builtin').find_files {

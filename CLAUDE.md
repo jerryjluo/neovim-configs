@@ -75,8 +75,12 @@ Mason will auto-install servers listed in this table.
 ## File Navigation
 
 - `<leader>ft` - Toggle Neo-tree | `<leader>fc` - Neo-tree at current file
-- `<leader>fe` - Netrw explore | `<leader>fv` - Netrw vertical split
+- `-` - Open parent dir in Oil | `<leader>fe` - Oil explore | `<leader>fv` - Oil vertical split
 - `<leader>fl` - Last buffer | `<leader>fd` - Diff buffer edits vs disk
+
+Oil (`lua/plugins/oil.lua`) replaces netrw as the default file explorer — edit the
+filesystem like a text buffer (create/rename/delete lines, then `:w` to apply). Neo-tree
+remains the persistent sidebar tree.
 
 ## Motions (flash.nvim)
 
