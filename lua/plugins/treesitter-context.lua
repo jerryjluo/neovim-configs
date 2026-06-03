@@ -7,7 +7,7 @@ return {
     opts = {
         max_lines = 3,            -- max sticky lines (0 = unlimited)
         multiline_threshold = 1,  -- collapse multiline contexts to a single line
-        trim_scope = 'outer',     -- when over max_lines, discard outermost contexts first
+        trim_scope = 'inner',     -- when over max_lines, discard innermost contexts first (keep outer scopes like func/class header)
         mode = 'topline',         -- derive context from the top visible line (stable while scrolling)
     },
     config = function(_, opts)
