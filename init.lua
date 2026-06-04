@@ -244,5 +244,3 @@ setup_arglist_keymaps()
 
 setup_autocmds()
 require 'user-settings'
-
--- vim: ts=2 sts=2 sw=2 et
