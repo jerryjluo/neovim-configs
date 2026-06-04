@@ -5,6 +5,9 @@ return {
     -- Automatically install LSPs to stdpath for neovim
     { 'williamboman/mason.nvim', config = true },
     'williamboman/mason-lspconfig.nvim',
+    -- Auto-install standalone tools (formatters/linters) not managed by
+    -- mason-lspconfig, e.g. stylua for conform.nvim.
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
 
     -- Useful status updates for LSP
     -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
@@ -83,6 +86,13 @@ return {
     -- before setting up the servers.
     require('mason').setup()
     require('mason-lspconfig').setup()
+
+    -- Bootstrap standalone tools via Mason (LSP servers are handled by
+    -- mason-lspconfig above). gofmt/rustfmt are not here: they ship with the
+    -- Go/Rust toolchains, not Mason.
+    require('mason-tool-installer').setup {
+      ensure_installed = { 'stylua' },
+    }
 
     -- Enable the following language servers
     --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
