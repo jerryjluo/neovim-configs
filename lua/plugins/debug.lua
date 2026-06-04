@@ -89,7 +89,7 @@ return {
     -- Install golang specific config
     require('dap-go').setup()
 
-    local python_path = vim.fn.system("which python3")
+    local python_path = vim.fn.system 'which python3'
     require('dap-python').setup(python_path)
   end,
 }

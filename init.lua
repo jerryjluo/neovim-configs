@@ -6,8 +6,10 @@ vim.g.maplocalleader = ' '
 -- lives at top scope where both setup_basic_keymaps() and setup_autocmds() can
 -- close over it.
 local function refresh_buffers_and_tree()
-  vim.cmd('checktime')
-  pcall(function() require('neo-tree.sources.manager').refresh('filesystem') end)
+  vim.cmd 'checktime'
+  pcall(function()
+    require('neo-tree.sources.manager').refresh 'filesystem'
+  end)
 end
 
 -- Clone lazy.nvim on first launch, then declare the plugin list.
@@ -26,29 +28,30 @@ local function bootstrap_lazy()
   vim.opt.rtp:prepend(lazypath)
 
   require('lazy').setup({
-    require 'plugins.fugitive',              -- Git: fugitive (+ GitHub/GitLab GBrowse)
-    'tpope/vim-surround',                    -- Add/change/delete surrounding pairs (cs, ds, ys)
-    'jeetsukumaran/vim-indentwise',          -- Motions based on indent levels ([-, ]+, etc.)
-    'nvim-neotest/nvim-nio',                 -- Async IO library (dependency for other plugins)
-    require 'plugins.debug',                 -- DAP debugger for Go and Python
-    require 'plugins.nvim-lspconfig',        -- LSP configuration with Mason
-    require 'plugins.filetree',              -- Neo-tree file explorer
-    require 'plugins.diffview',              -- Git diff viewer with file tree
-    require 'plugins.gitsigns',              -- Git signs in gutter + hunk operations
-    require 'plugins.lsp-signature',         -- Function signature help while typing
-    require 'plugins.lualine',               -- Status line
-    require 'plugins.nvim-cmp',              -- Autocompletion engine
-    require 'plugins.aerial',                -- Code outline sidebar
-    require 'plugins.telescope',             -- Fuzzy finder for files, grep, buffers
-    require 'plugins.treesitter',            -- Syntax highlighting and text objects
-    require 'plugins.treesitter-context',    -- Sticky scroll: pin enclosing scope to top of window
-    require 'plugins.which-key',             -- Keymap hints popup
-    require 'plugins.catppuccin',            -- Color theme
+    require 'plugins.fugitive', -- Git: fugitive (+ GitHub/GitLab GBrowse)
+    'tpope/vim-surround', -- Add/change/delete surrounding pairs (cs, ds, ys)
+    'jeetsukumaran/vim-indentwise', -- Motions based on indent levels ([-, ]+, etc.)
+    'nvim-neotest/nvim-nio', -- Async IO library (dependency for other plugins)
+    require 'plugins.debug', -- DAP debugger for Go and Python
+    require 'plugins.nvim-lspconfig', -- LSP configuration with Mason
+    require 'plugins.conform', -- Formatter (stylua/gofmt/rustfmt) + format-on-save
+    require 'plugins.filetree', -- Neo-tree file explorer
+    require 'plugins.diffview', -- Git diff viewer with file tree
+    require 'plugins.gitsigns', -- Git signs in gutter + hunk operations
+    require 'plugins.lsp-signature', -- Function signature help while typing
+    require 'plugins.lualine', -- Status line
+    require 'plugins.nvim-cmp', -- Autocompletion engine
+    require 'plugins.aerial', -- Code outline sidebar
+    require 'plugins.telescope', -- Fuzzy finder for files, grep, buffers
+    require 'plugins.treesitter', -- Syntax highlighting and text objects
+    require 'plugins.treesitter-context', -- Sticky scroll: pin enclosing scope to top of window
+    require 'plugins.which-key', -- Keymap hints popup
+    require 'plugins.catppuccin', -- Color theme
     require 'plugins.nvim-various-textobjs', -- Extra text objects (multiline comments, etc.)
-    require 'plugins.claude-code',           -- Claude Code integration
-    require 'plugins.harpoon',               -- Pinned file marks
-    require 'plugins.flash',                 -- Jump anywhere on screen via labeled motions
-    require 'plugins.oil',                   -- Buffer-based file manager (edit dirs as text)
+    require 'plugins.claude-code', -- Claude Code integration
+    require 'plugins.harpoon', -- Pinned file marks
+    require 'plugins.flash', -- Jump anywhere on screen via labeled motions
+    require 'plugins.oil', -- Buffer-based file manager (edit dirs as text)
   }, {})
 end
 
@@ -57,7 +60,7 @@ local function setup_options()
   vim.o.autoread = true
   vim.o.hlsearch = true
   vim.wo.number = true
-  vim.cmd("highlight LineNr guifg=#666729")
+  vim.cmd 'highlight LineNr guifg=#666729'
   vim.o.clipboard = 'unnamedplus'
   vim.o.breakindent = true
   vim.o.undofile = true
@@ -72,8 +75,8 @@ local function setup_options()
   vim.o.scrolloff = 8
   vim.o.completeopt = 'menuone,noselect'
   vim.o.termguicolors = true
-  vim.o.tabstop = 4
   vim.o.expandtab = true
+  vim.o.tabstop = 4
   vim.o.softtabstop = 4
   vim.o.shiftwidth = 4
   vim.o.shell = 'fish'
@@ -82,8 +85,9 @@ end
 -- Per-language indentation overrides (defaults live in setup_options).
 local function setup_indentation()
   vim.api.nvim_create_autocmd('FileType', {
-    pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'json', 'jsonc' },
+    pattern = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'json', 'jsonc', 'lua' },
     callback = function()
+      vim.opt_local.expandtab = true
       vim.opt_local.tabstop = 2
       vim.opt_local.softtabstop = 2
       vim.opt_local.shiftwidth = 2
@@ -105,13 +109,13 @@ local function setup_basic_keymaps()
   vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
   vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
   vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-  vim.keymap.set("n", "'", "`")
+  vim.keymap.set('n', "'", '`')
   vim.keymap.set('n', '<C-_>', '<Cmd>noh<CR>', { desc = 'Clear search' })
   vim.keymap.set('n', '<C-l>', function()
     refresh_buffers_and_tree()
-    vim.cmd('nohlsearch')
-    vim.cmd('diffupdate')
-    vim.cmd('redraw!')
+    vim.cmd 'nohlsearch'
+    vim.cmd 'diffupdate'
+    vim.cmd 'redraw!'
   end, { desc = 'Reload buffers and refresh filetree' })
   vim.keymap.set('t', '<C-]>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
   vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
@@ -119,8 +123,12 @@ end
 
 -- Diagnostic navigation, plus the virtual_text toggle (off by default).
 local function setup_diagnostics_keymaps()
-  local function diag_prev() vim.diagnostic.jump({ count = -1, float = true }) end
-  local function diag_next() vim.diagnostic.jump({ count = 1, float = true }) end
+  local function diag_prev()
+    vim.diagnostic.jump { count = -1, float = true }
+  end
+  local function diag_next()
+    vim.diagnostic.jump { count = 1, float = true }
+  end
   vim.keymap.set('n', '[d', diag_prev, { desc = 'Go to previous diagnostic message' })
   vim.keymap.set('n', '[$', diag_prev, { desc = 'Go to previous diagnostic message' })
   vim.keymap.set('n', ']d', diag_next, { desc = 'Go to next diagnostic message' })
@@ -129,14 +137,14 @@ local function setup_diagnostics_keymaps()
   vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
   vim.g.diagnostics_active = false
-  vim.diagnostic.config({ virtual_text = false })
+  vim.diagnostic.config { virtual_text = false }
   local function toggle_diagnostic()
     if vim.g.diagnostics_active then
       vim.g.diagnostics_active = false
-      vim.diagnostic.config({ virtual_text = false })
+      vim.diagnostic.config { virtual_text = false }
     else
       vim.g.diagnostics_active = true
-      vim.diagnostic.config({ virtual_text = true })
+      vim.diagnostic.config { virtual_text = true }
     end
   end
   vim.keymap.set('n', '<leader>dt', toggle_diagnostic, { desc = 'Toggle diagnostic' })
@@ -235,6 +243,6 @@ setup_quickfix_keymaps()
 setup_arglist_keymaps()
 
 setup_autocmds()
-require('user-settings')
+require 'user-settings'
 
 -- vim: ts=2 sts=2 sw=2 et

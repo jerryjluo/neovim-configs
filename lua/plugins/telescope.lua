@@ -32,14 +32,14 @@ return {
       pickers = {
         live_grep = {
           additional_args = function(_)
-            return { "--hidden" }
-          end
+            return { '--hidden' }
+          end,
         },
         find_files = {
           hidden = true,
-          file_ignore_patterns = { "^%.git/" },
-        }
-      }
+          file_ignore_patterns = { '^%.git/' },
+        },
+      },
     }
     -- Enable telescope fzf native, if installed
     pcall(require('telescope').load_extension, 'fzf')
@@ -60,8 +60,8 @@ return {
       end
 
       -- Find the Git root directory from the current file's path
-      local git_root = vim.fn.systemlist('git -C ' .. vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')
-          [1]
+      local git_root =
+        vim.fn.systemlist('git -C ' .. vim.fn.escape(current_dir, ' ') .. ' rev-parse --show-toplevel')[1]
       if vim.v.shell_error ~= 0 then
         print 'Not a git repository. Searching on current working directory'
         return cwd
@@ -99,7 +99,7 @@ return {
 
     local function telescope_live_grep_current_file()
       require('telescope.builtin').live_grep {
-        search_dirs = { vim.fn.expand("%:p") },
+        search_dirs = { vim.fn.expand '%:p' },
       }
     end
 
@@ -109,10 +109,18 @@ return {
     -- vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
     -- vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
     vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-    vim.keymap.set('n', '<leader>sc', require('telescope.builtin').grep_string,
-      { desc = '[S]earch by grep [c]ursor in workspace' })
-    vim.keymap.set('n', '<leader>sw', require('telescope.builtin').live_grep,
-      { desc = '[S]earch by grep in [W]orkspace' })
+    vim.keymap.set(
+      'n',
+      '<leader>sc',
+      require('telescope.builtin').grep_string,
+      { desc = '[S]earch by grep [c]ursor in workspace' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>sw',
+      require('telescope.builtin').live_grep,
+      { desc = '[S]earch by grep in [W]orkspace' }
+    )
     vim.keymap.set('n', '<leader>sg', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by grep on [G]it Root' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
@@ -125,10 +133,11 @@ return {
       require('telescope.builtin').find_files {
         hidden = true,
         find_command = {
-          'sh', '-c',
-          "{ fd --type f --type l --hidden --follow --exclude .git; "
-          .. "fd --type f --type l --hidden --follow --no-ignore --glob '.env*' --exclude .git; "
-          .. "} | awk '!seen[$0]++'",
+          'sh',
+          '-c',
+          '{ fd --type f --type l --hidden --follow --exclude .git; '
+            .. "fd --type f --type l --hidden --follow --no-ignore --glob '.env*' --exclude .git; "
+            .. "} | awk '!seen[$0]++'",
         },
       }
     end, { desc = '[F]ile search [A]ll (gitignore + .env + symlinks)' })
@@ -137,5 +146,5 @@ return {
     vim.keymap.set('n', '<leader>gr', '<Cmd>Telescope git_branches<CR>', { desc = '[G]it B[r]anches' })
     vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
     vim.keymap.set('n', '<leader>gh', '<Cmd>Telescope git_stash<CR>', { desc = '[G]it Stas[h]' })
-  end
+  end,
 }
