@@ -60,7 +60,7 @@ Mason will auto-install servers listed in this table.
 - `gI` - Go to implementation | `gy` - Go to type definition
 - `K` - Hover documentation | `<C-k>` - Signature help
 - `<leader>ca` - Code action | `<leader>cr` - Rename symbol
-- `<leader>cn` - Navbuddy (code navigation) | `<leader>cs` - Document symbols
+- `<leader>cs` - Document symbols
 - `<leader>cf` - Format (`:Format` command)
 
 ## Search (Telescope)

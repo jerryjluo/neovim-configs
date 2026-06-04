@@ -13,15 +13,6 @@ return
 
 		-- Additional lua configuration, makes nvim stuff amazing!
 		'folke/lazydev.nvim',
-
-        {
-            "SmiteshP/nvim-navbuddy",
-            dependencies = {
-                "SmiteshP/nvim-navic",
-                "MunifTanjim/nui.nvim"
-            },
-            opts = { lsp = { auto_attach = true } }
-        },
 	},
 	config = function()
 		-- [[ Configure LSP ]]
@@ -42,7 +33,6 @@ return
 			end
 
 			nmap('<leader>cr', vim.lsp.buf.rename, '[R]e[n]ame')
-			nmap('<leader>cn', '<Cmd>Navbuddy<CR>', '[C]ode [N]avbuddy')
 			nmap('<leader>ca', function()
 				vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' }, diagnostics = {} } }
 			end, '[C]ode [A]ction')
