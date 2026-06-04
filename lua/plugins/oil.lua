@@ -4,6 +4,11 @@ return {
 	-- Load at startup so oil can hijack netrw when opening a directory
 	-- (e.g. `nvim .` or following a path to a folder).
 	lazy = false,
+	keys = {
+		{ "-", "<Cmd>Oil<CR>", desc = "Open parent dir (Oil)" },
+		{ "<leader>fe", "<Cmd>Oil<CR>", desc = "[F]ile [E]xplore (Oil)" },
+		{ "<leader>fv", "<Cmd>vsplit | Oil<CR>", desc = "[F]ile Explore [V]ertical (Oil)" },
+	},
 	opts = {
 		default_file_explorer = true, -- replace netrw
 		view_options = {

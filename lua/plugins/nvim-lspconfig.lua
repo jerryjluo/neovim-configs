@@ -59,6 +59,7 @@ return
 			vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
 				vim.lsp.buf.format()
 			end, { desc = 'Format current buffer with LSP' })
+			nmap('<leader>cf', '<Cmd>Format<CR>', '[C]ode [F]ormat')
 
 			vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
 				buffer = bufnr,

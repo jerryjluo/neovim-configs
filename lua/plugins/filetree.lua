@@ -9,6 +9,8 @@ return {
 	},
 	keys = {
 		{ "|", "<cmd>Neotree toggle reveal<cr>", desc = "Toggle Neotree" },
+		{ "<leader>ft", "<Cmd>Neotree toggle left<CR>", desc = "[F]ile [T]ree" },
+		{ "<leader>fc", "<Cmd>Neotree position=current<CR>", desc = "[F]iletree [C]urrent position" },
 	},
 	config = function()
 		require("neo-tree").setup({

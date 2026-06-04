@@ -116,5 +116,26 @@ return {
     vim.keymap.set('n', '<leader>sg', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by grep on [G]it Root' })
     vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+
+    -- File pickers
+    vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ile [r]ecents' })
+    vim.keymap.set('n', '<leader>fo', require('telescope.builtin').buffers, { desc = '[F]ile [o]pened' })
+    vim.keymap.set('n', '<leader>fs', require('telescope.builtin').find_files, { desc = '[F]ile [S]earch' })
+    vim.keymap.set('n', '<leader>fa', function()
+      require('telescope.builtin').find_files {
+        hidden = true,
+        find_command = {
+          'sh', '-c',
+          "{ fd --type f --type l --hidden --follow --exclude .git; "
+          .. "fd --type f --type l --hidden --follow --no-ignore --glob '.env*' --exclude .git; "
+          .. "} | awk '!seen[$0]++'",
+        },
+      }
+    end, { desc = '[F]ile search [A]ll (gitignore + .env + symlinks)' })
+
+    -- Git pickers
+    vim.keymap.set('n', '<leader>gr', '<Cmd>Telescope git_branches<CR>', { desc = '[G]it B[r]anches' })
+    vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
+    vim.keymap.set('n', '<leader>gh', '<Cmd>Telescope git_stash<CR>', { desc = '[G]it Stas[h]' })
   end
 }

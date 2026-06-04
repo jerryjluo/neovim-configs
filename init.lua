@@ -26,31 +26,29 @@ local function bootstrap_lazy()
   vim.opt.rtp:prepend(lazypath)
 
   require('lazy').setup({
-    'tpope/vim-fugitive',            -- Git commands (:Git, :Gvdiffsplit, etc.)
-    'tpope/vim-rhubarb',             -- GitHub integration for fugitive
-    'shumphrey/fugitive-gitlab.vim', -- GitLab integration for fugitive
-    'tpope/vim-surround',            -- Add/change/delete surrounding pairs (cs, ds, ys)
-    'jeetsukumaran/vim-indentwise',  -- Motions based on indent levels ([-, ]+, etc.)
-    'nvim-neotest/nvim-nio',         -- Async IO library (dependency for other plugins)
-    require 'plugins.debug',         -- DAP debugger for Go and Python
-    require 'plugins.nvim-lspconfig', -- LSP configuration with Mason
-    require 'plugins.filetree',      -- Neo-tree file explorer
-    require 'plugins.diffview',      -- Git diff viewer with file tree
-    require 'plugins.gitsigns',      -- Git signs in gutter + hunk operations
-    require 'plugins.lsp-signature', -- Function signature help while typing
-    require 'plugins.lualine',       -- Status line
-    require 'plugins.nvim-cmp',      -- Autocompletion engine
-    require 'plugins.aerial',        -- Code outline sidebar
-    require 'plugins.telescope',     -- Fuzzy finder for files, grep, buffers
-    require 'plugins.treesitter',    -- Syntax highlighting and text objects
-    require 'plugins.treesitter-context', -- Sticky scroll: pin enclosing scope to top of window
-    require 'plugins.which-key',     -- Keymap hints popup
-    require 'plugins.catppuccin',    -- Color theme
+    require 'plugins.fugitive',              -- Git: fugitive (+ GitHub/GitLab GBrowse)
+    'tpope/vim-surround',                    -- Add/change/delete surrounding pairs (cs, ds, ys)
+    'jeetsukumaran/vim-indentwise',          -- Motions based on indent levels ([-, ]+, etc.)
+    'nvim-neotest/nvim-nio',                 -- Async IO library (dependency for other plugins)
+    require 'plugins.debug',                 -- DAP debugger for Go and Python
+    require 'plugins.nvim-lspconfig',        -- LSP configuration with Mason
+    require 'plugins.filetree',              -- Neo-tree file explorer
+    require 'plugins.diffview',              -- Git diff viewer with file tree
+    require 'plugins.gitsigns',              -- Git signs in gutter + hunk operations
+    require 'plugins.lsp-signature',         -- Function signature help while typing
+    require 'plugins.lualine',               -- Status line
+    require 'plugins.nvim-cmp',              -- Autocompletion engine
+    require 'plugins.aerial',                -- Code outline sidebar
+    require 'plugins.telescope',             -- Fuzzy finder for files, grep, buffers
+    require 'plugins.treesitter',            -- Syntax highlighting and text objects
+    require 'plugins.treesitter-context',    -- Sticky scroll: pin enclosing scope to top of window
+    require 'plugins.which-key',             -- Keymap hints popup
+    require 'plugins.catppuccin',            -- Color theme
     require 'plugins.nvim-various-textobjs', -- Extra text objects (multiline comments, etc.)
-    require 'plugins.claude-code',   -- Claude Code integration
-    require 'plugins.harpoon',       -- Pinned file marks
-    require 'plugins.flash',         -- Jump anywhere on screen via labeled motions
-    require 'plugins.oil',           -- Buffer-based file manager (edit dirs as text)
+    require 'plugins.claude-code',           -- Claude Code integration
+    require 'plugins.harpoon',               -- Pinned file marks
+    require 'plugins.flash',                 -- Jump anywhere on screen via labeled motions
+    require 'plugins.oil',                   -- Buffer-based file manager (edit dirs as text)
   }, {})
 end
 
@@ -144,42 +142,11 @@ local function setup_diagnostics_keymaps()
   vim.keymap.set('n', '<leader>dt', toggle_diagnostic, { desc = 'Toggle diagnostic' })
 end
 
+-- Native file maps only; plugin-driven file/git maps live in their specs
+-- (telescope.lua, oil.lua, filetree.lua, fugitive.lua).
 local function setup_file_keymaps()
   vim.keymap.set('n', '<leader>fl', '<Cmd>b#<CR>', { desc = '[F]ile [L]ast' })
-  vim.keymap.set('n', '<leader>fr', require('telescope.builtin').oldfiles, { desc = '[F]ile [r]ecents' })
-  vim.keymap.set('n', '<leader>fo', require('telescope.builtin').buffers, { desc = '[F]ile [o]pened' })
-  vim.keymap.set('n', '<leader>fe', '<Cmd>Oil<CR>', { desc = '[F]ile [E]xplore (Oil)' })
-  vim.keymap.set('n', '<leader>fv', '<Cmd>vsplit | Oil<CR>', { desc = '[F]ile Explore [V]ertical (Oil)' })
-  vim.keymap.set('n', '-', '<Cmd>Oil<CR>', { desc = 'Open parent dir (Oil)' })
-  vim.keymap.set('n', '<leader>fs', require('telescope.builtin').find_files, { desc = '[F]ile [S]earch' })
-  vim.keymap.set('n', '<leader>fa', function()
-    require('telescope.builtin').find_files {
-      hidden = true,
-      find_command = {
-        'sh', '-c',
-        "{ fd --type f --type l --hidden --follow --exclude .git; "
-          .. "fd --type f --type l --hidden --follow --no-ignore --glob '.env*' --exclude .git; "
-          .. "} | awk '!seen[$0]++'",
-      },
-    }
-  end, { desc = '[F]ile search [A]ll (gitignore + .env + symlinks)' })
-  vim.keymap.set('n', '<leader>ft', '<Cmd>Neotree toggle left<CR>', { desc = '[F]ile [T]ree' })
-  vim.keymap.set('n', '<leader>fc', '<Cmd>Neotree position=current<CR>', { desc = '[F]iletree [C]urrent position' })
   vim.keymap.set('n', '<leader>fd', '<Cmd>w !git diff --no-index -- % -<CR>', { desc = '[F]ile [D]iff buffer edit' })
-end
-
-local function setup_git_keymaps()
-  vim.keymap.set('n', '<leader>gb', '<Cmd>Git blame<CR>', { desc = '[G]it [B]lame' })
-  vim.keymap.set('n', '<leader>gr', '<Cmd>Telescope git_branches<CR>', { desc = '[G]it B[r]anches' })
-  vim.keymap.set('n', '<leader>gs', '<Cmd>Telescope git_status<CR>', { desc = '[G]it [S]tatus' })
-  vim.keymap.set('n', '<leader>gl', '<Cmd>.GBrowse!<CR>', { desc = '[G]it [L]ink' })
-  vim.keymap.set('n', '<leader>gd', '<Cmd>Gvdiffsplit<CR>', { desc = '[G]it [D]iff against staged' })
-  vim.keymap.set('n', '<leader>gh', '<Cmd>Telescope git_stash<CR>', { desc = '[G]it Stas[h]' })
-  vim.keymap.set('n', '<leader>gc', '<Cmd>Git commit<CR>', { desc = '[G]it [C]ommit' })
-end
-
-local function setup_code_keymaps()
-  vim.keymap.set('n', '<leader>cf', '<Cmd>Format<CR>', { desc = '[C]ode [F]ormat' })
 end
 
 local function setup_yank_keymaps()
@@ -224,13 +191,6 @@ local function setup_quickfix_keymaps()
   vim.keymap.set('n', '<leader>q', '<Cmd>copen<CR>', { desc = 'Open quickfix' })
 end
 
-local function setup_textobject_keymaps()
-  vim.keymap.set({ 'o', 'v' }, 'am', '<Cmd>lua require("various-textobjs").multiCommentedLines()<CR>',
-    { desc = 'Select multiline comment' })
-  vim.keymap.set({ 'o', 'v' }, 'im', '<Cmd>lua require("various-textobjs").multiCommentedLines()<CR>',
-    { desc = 'Select multiline comment' })
-end
-
 local function setup_arglist_keymaps()
   vim.keymap.set('n', '[r', '<Cmd>previous<CR>', { desc = 'Previous argument' })
   vim.keymap.set('n', '[`', '<Cmd>previous<CR>', { desc = 'Previous argument' })
@@ -268,13 +228,10 @@ setup_indentation()
 setup_basic_keymaps()
 setup_diagnostics_keymaps()
 setup_file_keymaps()
-setup_git_keymaps()
-setup_code_keymaps()
 setup_yank_keymaps()
 setup_tab_keymaps()
 setup_buffer_keymaps()
 setup_quickfix_keymaps()
-setup_textobject_keymaps()
 setup_arglist_keymaps()
 
 setup_autocmds()
