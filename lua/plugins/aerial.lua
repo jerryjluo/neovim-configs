@@ -25,8 +25,8 @@ return {
 			-- outline closed if you dismissed it with `<leader>co`.
 			open_automatic = function(bufnr)
 				local aerial = require('aerial')
-				return vim.api.nvim_buf_line_count(bufnr) > 40 -- skip tiny files
-					and aerial.num_symbols(bufnr) > 2 -- skip near-symbol-less files
+				return vim.api.nvim_buf_line_count(bufnr) >= 40 -- skip files under 40 lines
+					and aerial.num_symbols(bufnr) > 2 -- skip unsupported / near-symbol-less files
 					and not aerial.was_closed() -- stay closed if manually closed
 			end,
 			on_attach = function(bufnr)

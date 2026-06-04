@@ -242,12 +242,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    vim.cmd('Neotree show')
-  end,
-})
-
 vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter' }, {
   callback = refresh_buffers_and_tree,
 })
